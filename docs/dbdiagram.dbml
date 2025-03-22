@@ -1,0 +1,96 @@
+// Use DBML to define your database structure
+// Docs: https://dbml.dbdiagram.io/docs
+
+Table users {
+  id uniqueidentifier [primary key]
+  name varchar
+  email varchar
+  password varchar
+  role_id uniqueidentifier [ref: > roles.id]
+  created_at timestamp
+  updated_at timestamp
+  deleted_at timestamp
+}
+
+Table roles {
+  id uniqueidentifier [primary key]
+  name varchar
+  created_at timestamp
+  updated_at timestamp
+  deleted_at timestamp
+}
+
+Table permissions {
+  id uniqueidentifier [primary key]
+  role_id uniqueidentifier [ref: > roles.id]
+  menu_id uniqueidentifier [ref: > menus.id]
+  actions int
+  created_at timestamp
+  updated_at timestamp
+  deleted_at timestamp
+}
+
+Table menus {
+  id uniqueidentifier [primary key]
+  name varchar
+  prefix_route varchar
+  created_at timestamp
+  updated_at timestamp
+  deleted_at timestamp
+}
+
+Table notifications {
+  id uniqueidentifier [primary key]
+  subject varchar
+  description text
+  user_id uniqueidentifier [ref: > users.id]
+  is_read tinyint
+  created_at timestamp
+  updated_at timestamp
+  deleted_at timestamp
+}
+
+Table products {
+  id uniqueidentifier [primary key]
+  name varchar
+  created_at timestamp
+  updated_at timestamp
+  deleted_at timestamp
+}
+
+Table workflows {
+  id uniqueidentifier [primary key]
+  product_id uniqueidentifier [ref: - products.id]
+  role_id uniqueidentifier [ref: > roles.id]
+  title varchar
+  description text
+  level int
+  created_at timestamp
+  updated_at timestamp
+  deleted_at timestamp
+}
+
+Table inventories {
+  id uniqueidentifier [primary key]
+  product_id uniqueidentifier [ref: > products.id]
+  qty int
+  current_level int
+  status int
+  created_at timestamp
+  created_by uniqueidentifier [ref: > users.id]
+  updated_at timestamp
+  updated_by uniqueidentifier [ref: > users.id]
+  deleted_at timestamp
+  deleted_by uniqueidentifier [ref: > users.id]
+}
+
+Table inventory_workflows {
+  id uniqueidentifier [primary key]
+  inventory_id uniqueidentifier [ref: - inventories.id]
+  workflow_id uniqueidentifier [ref: > workflows.id]
+  user_id uniqueidentifier [ref: > users.id]
+  status int
+  created_at timestamp
+  updated_at timestamp
+  deleted_at timestamp
+}
