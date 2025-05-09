@@ -6,3 +6,5 @@
 5. Run `npm install`
 6. Copy .env.example to .env and then make sure the credential is there
 7. Run `php artisan key:generate`
+8. Run `php artisan migrate`
+9. Run `php artisan `

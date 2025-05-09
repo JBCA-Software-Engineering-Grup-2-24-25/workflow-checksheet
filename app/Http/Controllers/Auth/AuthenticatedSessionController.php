@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Auth;
 
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Auth\LoginRequest;
+use App\Providers\AppServiceProvider;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -28,7 +29,32 @@ class AuthenticatedSessionController extends Controller
 
         $request->session()->regenerate();
 
-        return redirect()->intended(route('dashboard', absolute: false));
+        $intended = redirect()->getIntendedUrl();
+
+        if ($intended != null) {
+            if (str_contains($intended, 'http://')) {
+                $intended = str_replace('http://', '', $intended);
+            }
+
+            else {
+                $intended = str_replace('https://', '', $intended);
+            }
+
+            $intended = substr($intended, strpos($intended, '/'));
+        }
+
+        else {
+            $intended = AppServiceProvider::HOME;
+        }
+
+        /** @var User $user */
+        $user = Auth::guard('web')->user();
+
+        $user->loadMissing('roleUser.permissions');
+
+        // Cache::tags(['roleUser.' . $user->role_user_id])->add('user.' . $user->id, $user, 60);
+
+        return redirect()->to($intended)->with('status', 'login-success');
     }
 
     /**

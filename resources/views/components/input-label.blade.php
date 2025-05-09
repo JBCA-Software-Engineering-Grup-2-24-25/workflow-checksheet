@@ -1,5 +1,26 @@
-@props(['value'])
+@props([
+    'value' => '',
+    'tooltips' => false,
+    'tooltipsContent' => '',
+    'required' => false
+])
 
-<label {{ $attributes->merge(['class' => 'block font-medium text-sm text-gray-700']) }}>
-    {{ $value ?? $slot }}
-</label>
+<div class="flex items-center">
+    <label {{ $attributes }}>
+        {{ $value ?? $slot }}
+    </label>
+
+    @if ($required)
+        <span class="text-red-400">*</span>
+    @endif
+
+    @if ($tooltips)
+        <div class="ms-1">
+            @if (isset($tooltipSlot))   <!-- used for x-bind content data -->
+                {{ $tooltipSlot }}
+            @else
+                <x-tippy :data-tippy-content="$tooltipsContent" />
+            @endif
+        </div>
+    @endif
+</div>
