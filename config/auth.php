@@ -2,6 +2,9 @@
 
 return [
 
+    'user_online' => env('USER_ONLINE', 'user-is-online'),
+    'user_online_expired'   => env('USER_ONLINE_EXPIRED', 15),
+
     /*
     |--------------------------------------------------------------------------
     | Authentication Defaults

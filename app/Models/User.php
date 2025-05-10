@@ -4,13 +4,27 @@ namespace App\Models;
 
 // use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
+use Illuminate\Database\Eloquent\Relations\BelongsTo;
+use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 
+/**
+ * @property string $name
+ * @property string $email
+ * @property string $password
+ * @property int $role_id
+ * @property Role $role
+ * @property int $author_id
+ * @property-read int $id
+ * @property-read ?\Illuminate\Support\Carbon $created_at
+ * @property-read ?\Illuminate\Support\Carbon $updated_at
+ * @property-read ?\Illuminate\Support\Carbon $deleted_at
+ */
 class User extends Authenticatable
 {
     /** @use HasFactory<\Database\Factories\UserFactory> */
-    use HasFactory, Notifiable;
+    use HasFactory, Notifiable, SoftDeletes;
 
     /**
      * The attributes that are mass assignable.
@@ -21,6 +35,8 @@ class User extends Authenticatable
         'name',
         'email',
         'password',
+        'role_id',
+        'author_id'
     ];
 
     /**
@@ -41,8 +57,23 @@ class User extends Authenticatable
     protected function casts(): array
     {
         return [
-            'email_verified_at' => 'datetime',
+            'last_seen' => 'datetime',
             'password' => 'hashed',
         ];
+    }
+
+    /**
+     * Role
+     *
+     * @return void
+     */
+    public function role() : BelongsTo
+    {
+        return $this->belongsTo(Role::class);
+    }
+
+    public function IsSuperAdmin() : bool
+    {
+        return $this->role->name === 'Super Admin';
     }
 }
