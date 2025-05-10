@@ -1,8 +1,8 @@
 <?php
 
-namespace App\Interfaces\Permission;
+namespace App\Interfaces\Iam;
 
-use App\Http\Requests\Permission\PermissionRequest;
+use App\Http\Requests\Iam\PermissionRequest;
 use App\Models\Permission;
 use Illuminate\Database\Eloquent\Collection;
 

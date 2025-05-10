@@ -1,6 +1,10 @@
 <?php
 
 return [
+    'delete' => [
+
+    ],
+
     'default' => [
         'index',
         'profile.avatar',
@@ -35,5 +39,16 @@ return [
         'ignition.healthCheck',
         'ignition.executeSolution',
         'ignition.updateConfig',
+        'api.roles.search',
+        'debugbar.queries.explain',
+        'storage.local',
+    ],
+
+    'skips'   => [
+        'permission.update',
+        'roles.update',
+        'roles.destroy',
+        'user.update',
+        'user.destroy',
     ],
 ];

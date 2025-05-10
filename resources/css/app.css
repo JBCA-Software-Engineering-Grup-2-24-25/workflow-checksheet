@@ -1,3 +1,42 @@
+/*! purgecss start ignore */
+@import "choices.js/public/assets/styles/choices.css";
+/*! purgecss end ignore */
+
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+.breadcrumb-item+.breadcrumb-item::before {
+    float: left;
+    padding-right: 0.5rem;
+    color: var(--bs-breadcrumb-divider-color);
+    content: "/";
+}
+
+/* Hide scrollbar for Chrome, Safari and Opera */
+.no-scrollbar::-webkit-scrollbar {
+    display: none;
+}
+
+/* Hide scrollbar for IE, Edge and Firefox */
+.no-scrollbar {
+    -ms-overflow-style: none;/* IE and Edge */
+    scrollbar-width: none;/* Firefox */
+}
+
+input[type="checkbox"]:disabled {
+    @apply opacity-50 !important;
+}
+
+.select-axios .choices__inner {
+    @apply p-2 mt-2 text-sm text-gray-900 border border-gray-300 rounded min-h-0 !important;
+}
+
+.select-axios .choices__list.choices__list--single {
+    @apply py-0 !important;
+}
+
+.select-axios .choices__list--dropdown .choices__item--selectable,
+.choices__list[aria-expanded] .choices__item--selectable {
+    @apply pr-0 !important;
+}

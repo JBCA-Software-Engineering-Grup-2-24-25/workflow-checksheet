@@ -60,7 +60,7 @@
                                     </x-table.data>
                                     <x-table.data>
                                     <div x-data="checked()">
-                                        @if ($item->is_default == true == true)
+                                        @if ($item->is_default)
                                             <input type="hidden" name="permissions[]" value="{{ $item->id }}">
                                             <x-form.checkbox :checked="$item->is_default" :disabled="$item->is_default" />
                                         @else

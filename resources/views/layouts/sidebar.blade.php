@@ -30,7 +30,7 @@
         <!-- end::Menu link -->
 
         @canany(['roles.index', 'permission.index'])
-            <div x-data="{ linkActive: @js(in_array('/' . request()->segment(1), [route(name: 'company.index', absolute: false), route(name: 'client.index', absolute: false), route(name: 'roles.index', absolute: false), route(name: 'permission.index', absolute: false)]) ? true : false) }">
+            <div x-data="{ linkActive: @js(in_array('/' . request()->segment(1), [route(name: 'users.index', absolute: false), route(name: 'roles.index', absolute: false), route(name: 'permission.index', absolute: false)]) ? true : false) }">
                 <div @click="linkActive = !linkActive"
                     class="flex items-center justify-between mx-4 px-3 py-3 rounded transition duration-200 text-white"
                     :class="linkActive ? 'bg-black bg-opacity-30 text-gray-100 cursor-default' :
@@ -54,7 +54,17 @@
                 <!-- start::Submenu -->
                 <ul x-show="linkActive" x-cloak x-collapse.duration.300ms class="text-gray-300">
                     <!-- start::Submenu link -->
-                    @can('roles.index')
+                    @can('users.index')
+                        <li class="py-2 pl-10 pr-6 transition duration-200 cursor-pointer opacity-70 hover:opacity-100">
+                            <a href="{{ route(name: 'users.index', absolute: false) }}" class="flex items-center">
+                                <span class="mr-2 text-sm">&bull;</span>
+                                <span class="overflow-ellipsis">Users</span>
+                            </a>
+                        </li>
+                    @endcan
+                    <!-- end::Submenu link -->
+                    <!-- start::Submenu link -->
+                    @can('users.index')
                         <li class="py-2 pl-10 pr-6 transition duration-200 cursor-pointer opacity-70 hover:opacity-100">
                             <a href="{{ route(name: 'roles.index', absolute: false) }}" class="flex items-center">
                                 <span class="mr-2 text-sm">&bull;</span>
@@ -80,7 +90,7 @@
         @endcanany
 
         <!-- start::Menu link -->
-        <a x-data="{ linkActive: @js(in_array('/' . request()->segment(1), [route(name: 'notification.index', absolute: false)]) ? true : false) }" href="{{ route(name: 'notification.index', absolute: false) }}"
+        {{-- <a x-data="{ linkActive: @js(in_array('/' . request()->segment(1), [route(name: 'notification.index', absolute: false)]) ? true : false) }" href="{{ route(name: 'notification.index', absolute: false) }}"
             class="flex items-center mx-4 px-3 py-3 rounded transition duration-200 text-white"
             :class="linkActive ? 'bg-black bg-opacity-30 text-gray-100 cursor-default' :
                 'text-gray-300 cursor-pointer opacity-70 hover:opacity-100'">
@@ -95,7 +105,7 @@
             <span class="ml-3 transition duration-200">
                 Notification
             </span>
-        </a>
+        </a> --}}
         <!-- end::Menu link -->
 
         <!-- <p class="px-6 mt-10 mb-2 text-xs text-gray-300 uppercase">Apps</p> -->

@@ -42,7 +42,7 @@
                             <!-- start::Dropdown content -->
                             <div class="overflow-y-scroll bg-white rounded max-h-96 custom-scrollbar">
                                 <!-- start::Dropdown link -->
-                                <a href="{{ route(name: 'roles.edit', parameters: ['role_user' => $data->id], absolute: false) }}"
+                                <a href="{{ route(name: 'roles.edit', parameters: ['role' => $data->id], absolute: false) }}"
                                     class="flex items-center justify-between px-4 py-2 cursor-pointer hover:bg-gray-100 bg-opacity-20">
                                     Edit
                                 </a>
@@ -91,9 +91,9 @@
                                             </x-table.data>
                                             <x-table.data>
                                                 @if ($item->is_default == true)
-                                                    <x-checkbox checked="checked" disabled="disabled" />
+                                                    <x-form.checkbox checked="checked" disabled="disabled" />
                                                 @else
-                                                    <x-checkbox :checked="$data->permissions->where('id', $item->id)->count() > 0 ||
+                                                    <x-form.checkbox :checked="$data->permissions->where('id', $item->id)->count() > 0 ||
                                                         $data->permissions->where('route', 'superadmin')->count() > 0
                                                             ? true
                                                             : false" disabled="disabled" />

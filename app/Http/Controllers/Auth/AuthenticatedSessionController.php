@@ -50,7 +50,7 @@ class AuthenticatedSessionController extends Controller
         /** @var User $user */
         $user = Auth::guard('web')->user();
 
-        $user->loadMissing('roleUser.permissions');
+        $user->loadMissing('role.permissions');
 
         // Cache::tags(['roleUser.' . $user->role_user_id])->add('user.' . $user->id, $user, 60);
 

@@ -1,31 +1,31 @@
 <x-app-layout>
     {{-- Alert Start --}}
-    @include('role.partials.alert')
+    @include('users.partials.alert')
     {{-- Alert End --}}
     <x-slot name="header">
-        {{ config('app.name', 'Laravel') }} | Roles | List Role
+        {{ config('app.name', 'Laravel') }} | Users | List User
     </x-slot>
     <div>
         <!-- Page Header -->
         <x-breadcrumbs>
-            <x-breadcrumbs.item :isActive="true" name="Roles" />
+            <x-breadcrumbs.item :isActive="true" name="Users" />
         </x-breadcrumbs>
         <!-- start::List Data -->
         <x-header>
             <div class="flex items-center justify-between">
-                <h4 class="text-base font-semibold">Roles</h4>
-                @can('roles.store')
-                    <a href="{{ route(name: 'roles.create', absolute: false) }}"
+                <h4 class="text-base font-semibold">Users</h4>
+                @can('users.store')
+                    <a href="{{ route(name: 'users.create', absolute: false) }}"
                         class="px-4 py-2 text-sm text-indigo-500 transition duration-150 rounded bg-indigo-50 hover:bg-indigo-500 hover:text-white">
-                        New Role
+                        New User
                     </a>
                 @endcan
             </div>
         </x-header>
         <div class="px-5 py-4 mt-5 bg-white rounded">
-            <div class="px-2 mb-12" x-data="{ openDelete: false, roleId: 0 }">
+            <div class="px-2 mb-12" x-data="{ openDelete: false, userId: 0 }">
                 <div class="flex items-center justify-end">
-                    @include('role.partials.filter-form', [
+                    @include('users.partials.filter-form', [
                         'search' => $search,
                         'sortChoices' => $sortChoices,
                         'sortBy' => $sortBy,
@@ -38,6 +38,9 @@
                             {{ __('Name') }}
                         </x-table.header>
                         <x-table.header>
+                            {{ __('Role') }}
+                        </x-table.header>
+                        <x-table.header>
                             {{ __('Created') }}
                         </x-table.header>
                         <x-table.header>
@@ -48,8 +51,8 @@
                         @foreach ($data as $item)
                             <x-table.row>
                                 <x-table.data>
-                                    @can('roles.show', $item)
-                                        <a href="{{ route(name: 'roles.show', parameters: ['role' => $item->id]) }}" class="capitalize hover:text-indigo-500">
+                                    @can('users.show', $item)
+                                        <a href="{{ route(name: 'users.show', parameters: ['user' => $item->id]) }}" class="capitalize hover:text-indigo-500">
                                             {{ $item->name }}
                                         </a>
                                     @else
@@ -57,12 +60,21 @@
                                     @endcan
                                 </x-table.data>
                                 <x-table.data>
+                                    @can('roles.show', $item)
+                                        <a href="{{ route(name: 'roles.show', parameters: ['role' => $item->role_id]) }}" class="capitalize hover:text-indigo-500">
+                                            {{ $item->role->name }}
+                                        </a>
+                                    @else
+                                        {{ $item->role->name }}
+                                    @endcan
+                                </x-table.data>
+                                <x-table.data>
                                     {{ $item->created_at }}
                                 </x-table.data>
                                 <x-table.action>
                                     <div class="flex items-center justify-start gap-2">
-                                        @can('roles.update', $item)
-                                            <a href="{{ route(name: 'roles.edit', parameters: ['role' => $item->id], absolute: false) }}"
+                                        @can('users.update', $item)
+                                            <a href="{{ route(name: 'users.edit', parameters: ['user' => $item->id], absolute: false) }}"
                                                 class="px-4 py-2 text-xs font-medium text-yellow-500 transition duration-150 rounded bg-yellow-50 hover:bg-yellow-500 hover:text-white">
                                                 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="18"
                                                     height="18">
@@ -72,8 +84,8 @@
                                                 </svg>
                                             </a>
                                         @endcan
-                                        @can('roles.show', $item)
-                                            <a href="{{ route(name: 'roles.show', parameters: ['role' => $item->id], absolute: false) }}"
+                                        @can('users.show', $item)
+                                            <a href="{{ route(name: 'users.show', parameters: ['user' => $item->id], absolute: false) }}"
                                                 class="px-4 py-2 text-xs font-medium text-indigo-500 transition duration-150 rounded bg-indigo-50 hover:bg-indigo-500 hover:text-white">
                                                 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="18"
                                                     height="18">
@@ -83,10 +95,10 @@
                                                 </svg>
                                             </a>
                                         @endcan
-                                        @can('roles.destroy', $item)
+                                        @can('users.destroy', $item)
                                             <button
                                                 class="px-4 py-2 text-xs font-medium text-red-500 transition duration-150 rounded bg-red-50 hover:bg-red-500 hover:text-white"
-                                                @click="openDelete = true; roleId = @js($item->id)">
+                                                @click="openDelete = true; userId = @js($item->id)">
                                                 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="18"
                                                     height="18">
                                                     <path
@@ -127,7 +139,7 @@
                             </svg>
                             <p class="mb-4 ">Are you sure you want to delete this item?</p>
                             <div class="flex items-center justify-center space-x-4">
-                                <form :action="route('roles.destroy', { 'role_user': roleId }, false)" method="POST">
+                                <form :action="route('users.destroy', { 'user': userId }, false)" method="POST">
                                     @csrf
                                     @method('DELETE')
                                     <x-button color="primary" type="submit">

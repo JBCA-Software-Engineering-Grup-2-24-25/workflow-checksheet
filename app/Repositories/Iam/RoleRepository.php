@@ -1,10 +1,10 @@
 <?php
 
-namespace App\Repositories\Role;
+namespace App\Repositories\Iam;
 
-use App\Http\Requests\Role\RoleRequest;
-use App\Http\Resources\Role\RoleResource;
-use App\Interfaces\Role\RoleInterface;
+use App\Http\Requests\Iam\RoleRequest;
+use App\Http\Resources\Iam\RoleResource;
+use App\Interfaces\Iam\RoleInterface;
 use App\Models\Permission;
 use App\Models\Role;
 use Exception;

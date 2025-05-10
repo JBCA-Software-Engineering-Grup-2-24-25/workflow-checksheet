@@ -1,10 +1,11 @@
 <?php
 
-namespace App\Http\Controllers\Role;
+namespace App\Http\Controllers\Iam;
 
-use App\Http\Requests\Role\RoleRequest;
-use App\Interfaces\Permission\PermissionInterface;
-use App\Interfaces\Role\RoleInterface;
+use App\Http\Requests\Iam\RoleRequest;
+use App\Interfaces\Iam\PermissionInterface;
+use App\Interfaces\Iam\RoleInterface;
+use App\Interfaces\Iam\UserInterface;
 use App\Models\Role;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\RedirectResponse;
@@ -13,9 +14,9 @@ use Illuminate\View\View;
 
 class RoleController extends BaseController
 {
-    public function __construct(RoleInterface $role, PermissionInterface $permission)
+    public function __construct(UserInterface $user, RoleInterface $role, PermissionInterface $permission)
     {
-        parent::__construct($role, $permission);
+        parent::__construct($user, $role, $permission);
 
         $this->setSortChoices([
             'created_at-asc' => 'Oldest',

@@ -1,10 +1,11 @@
 <?php
 
-namespace App\Http\Requests\Permission;
+namespace App\Http\Requests\Iam;
 
 use Illuminate\Foundation\Http\FormRequest;
+use Illuminate\Validation\Rule;
 
-class PermissionRequest extends FormRequest
+class RoleRequest extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.
@@ -23,7 +24,7 @@ class PermissionRequest extends FormRequest
     {
         return [
             'name' => ['required', 'string', 'max:255'],
-            'description' => ['nullable', 'string', 'max:255']
+            'permissions.*' => ['required', 'min:1', Rule::exists('permissions', 'id')],
         ];
     }
 }

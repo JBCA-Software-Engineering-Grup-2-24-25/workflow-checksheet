@@ -34,7 +34,7 @@
                             <x-table.row>
                                 <x-table.data>{{ $item->name }}</x-table.data>
                                 <x-table.data>{{ $item->description ?? '' }}</x-table.data>
-                                <x-table.actions>
+                                <x-table.action>
                                     @can('permission.update', $item)
                                         <div class="flex items-center justify-start gap-2">
                                             <a href="{{ route(name: 'permission.edit', parameters: ['permission' => $item->id], absolute: false) }}"
@@ -48,7 +48,7 @@
                                             </a>
                                         </div>
                                     @endcan
-                                </x-table.actions>
+                                </x-table.action>
                             </x-table.row>
                         @endforeach
                     </x-slot>

@@ -1,9 +1,9 @@
 <?php
 
-namespace App\Interfaces\Role;
+namespace App\Interfaces\Iam;
 
-use App\Http\Requests\Role\RoleRequest;
-use App\Http\Resources\Role\RoleResource;
+use App\Http\Requests\Iam\RoleRequest;
+use App\Http\Resources\Iam\RoleResource;
 use App\Models\Role;
 use Illuminate\Contracts\Pagination\LengthAwarePaginator;
 use Illuminate\Database\Eloquent\Collection;

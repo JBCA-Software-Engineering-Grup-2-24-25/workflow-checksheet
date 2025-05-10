@@ -49,9 +49,15 @@ class PermissionSync extends Command
             ]);
         });
 
-        $routes = $routes->whereNotNull('route')->whereNotIn('route', config('permission.except'));
+        $routes = $routes
+            ->whereNotNull('route')
+            ->whereNotIn('route', config('permission.except'));
 
         foreach ($routes as $route) {
+            if (str_contains($route['route'], 'create') || str_contains($route['route'], 'edit')) {
+                continue;
+            }
+
             if (Permission::query()->where('route', '=', $route['route'])->count() === 0) {
                 Permission::query()->create([
                     'name' => $route['name'],

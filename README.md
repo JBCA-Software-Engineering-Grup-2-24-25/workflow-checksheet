@@ -7,4 +7,6 @@
 6. Copy .env.example to .env and then make sure the credential is there
 7. Run `php artisan key:generate`
 8. Run `php artisan migrate`
-9. Run `php artisan `
+9. Run `php artisan admin:register` to register superadmin via CLI
+10. Run `php artisan permission:sync`
+11. Run `composer run dev` and access it via browser

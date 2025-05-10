@@ -17,7 +17,6 @@ use Illuminate\Notifications\Notifiable;
  * @property Role $role
  * @property int $author_id
  * @property-read int $id
- * @property-read ?\Illuminate\Support\Carbon $email_verified_at
  * @property-read ?\Illuminate\Support\Carbon $created_at
  * @property-read ?\Illuminate\Support\Carbon $updated_at
  * @property-read ?\Illuminate\Support\Carbon $deleted_at
@@ -58,7 +57,7 @@ class User extends Authenticatable
     protected function casts(): array
     {
         return [
-            'email_verified_at' => 'datetime',
+            'last_seen' => 'datetime',
             'password' => 'hashed',
         ];
     }
@@ -71,5 +70,10 @@ class User extends Authenticatable
     public function role() : BelongsTo
     {
         return $this->belongsTo(Role::class);
+    }
+
+    public function IsSuperAdmin() : bool
+    {
+        return $this->role->name === 'Super Admin';
     }
 }

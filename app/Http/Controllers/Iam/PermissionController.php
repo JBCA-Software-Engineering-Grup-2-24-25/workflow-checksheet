@@ -1,10 +1,11 @@
 <?php
 
-namespace App\Http\Controllers\Role;
+namespace App\Http\Controllers\Iam;
 
-use App\Http\Requests\Permission\PermissionRequest;
-use App\Interfaces\Permission\PermissionInterface;
-use App\Interfaces\Role\RoleInterface;
+use App\Http\Requests\Iam\PermissionRequest;
+use App\Interfaces\Iam\PermissionInterface;
+use App\Interfaces\Iam\RoleInterface;
+use App\Interfaces\Iam\UserInterface;
 use App\Models\Permission;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
@@ -12,9 +13,9 @@ use Illuminate\View\View;
 
 class PermissionController extends BaseController
 {
-    public function __construct(RoleInterface $role, PermissionInterface $permission)
+    public function __construct(UserInterface $user, RoleInterface $role, PermissionInterface $permission)
     {
-        parent::__construct($role, $permission);
+        parent::__construct($user, $role, $permission);
 
         $this->setSortChoices([
             'created_at-asc' => 'Oldest',

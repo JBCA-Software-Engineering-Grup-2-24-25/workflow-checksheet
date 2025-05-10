@@ -1,9 +1,9 @@
 <?php
 
-namespace App\Repositories;
+namespace App\Repositories\Iam;
 
-use App\Http\Requests\Permission\PermissionRequest;
-use App\Interfaces\Permission\PermissionInterface;
+use App\Http\Requests\Iam\PermissionRequest;
+use App\Interfaces\Iam\PermissionInterface;
 use App\Models\Permission;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Collection;
